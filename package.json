@@ -8,7 +8,7 @@
     "start-gendoc": "node swagger.js"
   },
   "keywords": [],
-  "author": "", yyyyy
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
