@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const{ createUserValidation, loginValidation, updateUserValidation }=require('../../middleware/input-validation');
 const {authenticateJWT} = require ('../../middleware/authentication');
+const {upload} = require("../../middleware/file");
+
 router.get("/", (req, res) => {
     return res.send({
         project: 'API v1 Web Service Praktikum Back-ENd'
@@ -16,3 +18,5 @@ router.put('/user/:id', authenticateJWT, updateUserValidation,userApi.update);
 router.delete('/user/:id', userApi.delete);
 module.exports = router;
 router.post('/user/login', loginValidation, userApi.login);
+router.put('/user/foto-profil/:id', authenticateJWT, upload('uploads').single("file"),
+userApi.updateFotoProfil);

@@ -2,9 +2,18 @@ const express = require("express");
 const knex = require("./db/knex");
 const PORT = 5000;
 const app = express();
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const routerV1 = require('./routes/v1/index')
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const routerV1 = require('./routes/v1/index');
+const path = require ("path");
+
+
+const swaggerUI = require("swagger-ui-express");
+const swaggerFile = require('./swagger_output.json');
+const { dirname } = require("path");
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
+app.use ("/public", express.static(path.join(__dirname,"public")));
+
 
 
 app.get("/ping", (req, res) => {
@@ -62,7 +71,3 @@ app.use(bodyParser.urlencoded({
 }));
 // inisialisasi router
 app.use('/v1/', routerV1);
-
-const swaggerUI = require("swagger-ui-express");
-const swaggerFile = require('./swagger_output.json');
-app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
